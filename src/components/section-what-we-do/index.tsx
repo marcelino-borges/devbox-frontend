@@ -35,7 +35,7 @@ const SectionWhatWeDo = () => {
         >
           <Grid item sm={4} xs={12}>
             <CardWhatWeDo
-              title="Tecnologia"
+              title="Technology"
               content="We make your dream come true through technology."
               icon={<Build style={iconStyle} />}
             />

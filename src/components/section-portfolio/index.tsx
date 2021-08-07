@@ -22,12 +22,13 @@ const SectionPortfolio = () => {
   useEffect(() => {
     const port: IPortfolioItem[] = portfolioJSON.map((item) => {
       return {
+        id: item.id,
         name: item.name,
         description: item.description,
         highlightImg: item.highlightImg,
         imgs: item.imgs,
         storeUrl: item.storeUrl,
-        otherUrls: item.urls,
+        otherUrls: item.otherUrls,
       };
     });
     setPortfolio(port);

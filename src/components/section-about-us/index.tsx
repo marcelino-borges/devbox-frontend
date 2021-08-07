@@ -20,6 +20,7 @@ const SectionAboutUs = () => {
   useEffect(() => {
     const members: ITeamMember[] = teamJSON.map((item) => {
       return {
+        id: item.id,
         firstName: item.firstName,
         lastName: item.lastName,
         mainRole: item.mainRole,
