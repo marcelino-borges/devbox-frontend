@@ -1,0 +1,9 @@
+.whatWeDoCardTitle {
+  font-weight: 700 !important;
+  margin-bottom: 50px !important;
+}
+
+.whatWeDoCard {
+  background-color: white !important;
+  height: 250px;
+}

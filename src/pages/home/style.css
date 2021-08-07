@@ -1,0 +1,24 @@
+.banner {
+  width: 100%;
+  height: auto;
+  margin: 0;
+  margin-top: "80px";
+}
+
+.scrollUpDiv {
+  width: 50px;
+  height: 50px;
+  border: solid 0.5px rgb(148, 25, 29);
+  background-color: rgba(204, 53, 58, 0.849);
+  border-radius: 50%;
+}
+
+.scrollUpDiv:hover {
+  background-color: rgba(226, 64, 69, 0.849);
+}
+
+@media screen and (max-width: 700px) {
+  .scrollUpDiv {
+    display: none;
+  }
+}

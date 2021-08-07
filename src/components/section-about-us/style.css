@@ -1,0 +1,24 @@
+.aboutUsSection {
+  background-color: white;
+  height: fit-content !important;
+  padding-bottom: 50px;
+}
+
+.teamMemberPaper {
+  /* border: 1px solid rgb(235, 235, 235); */
+  text-align: center !important;
+  height: 400px;
+  padding-top: 20px;
+}
+
+.teamPicture {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 50%;
+  width: 90%;
+  height: auto;
+  margin-bottom: 25px;
+}
+
+.teamPicture:hover {
+  filter: brightness(90%);
+}

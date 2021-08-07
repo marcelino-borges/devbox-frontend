@@ -1,0 +1,44 @@
+[
+  {
+    "firstName": "Marcelino",
+    "lastName": "Borges",
+    "mainRole": "Founder & Game Engineer",
+    "secondaryRoles": [
+      "Management",
+      "Sound Design",
+      "Software Engineer",
+      "Vfx"
+    ],
+    "memberSince": "2019-01-02T01:00:00-03:00",
+    "picture": "https://www.devbox.eng.br/team-members/marcelino.jpg"
+  },
+  {
+    "firstName": "Tiago",
+    "lastName": "Somogy",
+    "mainRole": "Game Designer",
+    "secondaryRoles": [
+      "Vfx",
+      "Game Engineer"
+    ],
+    "memberSince": "2021-01-02T01:00:00-03:00",
+    "picture": "https://www.devbox.eng.br/team-members/tiago.jpg"
+  },
+  {
+    "firstName": "Natália",
+    "lastName": "Sugano",
+    "mainRole": "UI/UX Designer",
+    "secondaryRoles": [
+      "2D Artist"
+    ],
+    "memberSince": "2020-10-02T01:00:00-03:00",
+    "picture": "https://www.devbox.eng.br/team-members/natalia.jpg"
+  },
+  {
+    "firstName": "Isaac",
+    "lastName": "Coutinho",
+    "mainRole": "2D & 3D Artist",
+    "secondaryRoles": [],
+    "memberSince": "2021-06-12T01:00:00-03:00",
+    "picture": "https://www.devbox.eng.br/team-members/isaac.jpg"
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "name": "Rokit",
+    "description": "Educational game that offers a match 3 game followed by quizzes.",
+    "imgs": [""],
+    "highlightImg": "https://www.devbox.eng.br/products/rokit/imgs/banner.jpg",
+    "storeUrl": "https://play.google.com/store/apps/details?id=com.devbox.rokitthegame",
+    "urls": [
+      {
+        "name": "Google Play Store",
+        "url": "https://play.google.com/store/apps/details?id=com.devbox.rokitthegame"
+      }
+    ]
+  },
+  {
+    "name": "Ballour",
+    "description": "Casual game that allows the player to use the accelerometer to control a ball towards the destruction of all biscuits, except the jelly ones.",
+    "imgs": [""],
+    "highlightImg": "https://www.devbox.eng.br/products/ballour/imgs/banner.png",
+    "storeUrl": "https://play.google.com/store/apps/details?id=com.devbox.ballour3",
+    "urls": [
+      {
+        "name": "Google Play Store",
+        "url": "https://play.google.com/store/apps/details?id=com.devbox.ballour3"
+      }
+    ]
+  },
+  {
+    "name": "Slimes vs. Humans",
+    "description": "Hyper casual game where the player controls an army of slimes trying to infect all humans on Earth!",
+    "imgs": [""],
+    "highlightImg": "https://www.devbox.eng.br/products/slimes-vs-humans/imgs/banner.jpg",
+    "storeUrl": "https://play.google.com/store/apps/details?id=com.devbox.slimesvshumans",
+    "urls": [
+      {
+        "name": "Google Play Store",
+        "url": "https://play.google.com/store/apps/details?id=com.devbox.slimesvshumans"
+      }
+    ]
+  },
+  {
+    "name": "How to be a Dragon",
+    "description": "PC/Console 2D platformer where the player controls Azantys, a small dino who dreams to became a dragon some day, so he dives in a journey for this goal.",
+    "imgs": [""],
+    "highlightImg": "https://www.devbox.eng.br/products/how-to-be-a-dragon/imgs/banner.jpeg",
+    "storeUrl": "",
+    "urls": [
+      {
+        "name": "Instagram",
+        "url": "https://www.instagram.com/howtobeadragon/"
+      }
+    ]
+  }
+]

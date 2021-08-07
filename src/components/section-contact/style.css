@@ -1,0 +1,29 @@
+.contactSection {
+  background-color: var(--theme-red);
+  height: fit-content !important;
+  padding-bottom: 50px;
+}
+
+.submitButton {
+  color: white !important;
+  width: 100px;
+  height: 46px;
+  border-color: #b23135ff !important;
+}
+
+.submitButton:hover {
+  background-color: #b23135ff !important;
+}
+
+.MuiInputBase-root #contact {
+  color: #fff !important;
+  font-size: 12 !important;
+}
+
+.MuiFormLabel-root {
+  color: white !important;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border-color: #b23135ff !important;
+}

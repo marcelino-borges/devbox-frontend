@@ -1,0 +1,19 @@
+.whatWeDoSection {
+  background-color: white;
+  background-image: none;
+  height: fit-content !important;
+  padding-bottom: 50px;
+}
+
+.whatWeDo {
+  height: 500px;
+  background-color: white;
+  width: 100%;
+  margin-top: -5px;
+  padding-top: 30px;
+}
+
+.section-icon {
+  color: black;
+  font-size: 90px;
+}
