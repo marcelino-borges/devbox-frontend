@@ -5,34 +5,29 @@ import "@fontsource/roboto";
 import Slider from "react-slick";
 import { v4 as uuid } from "uuid";
 
-import {
-  INNER_DIV_WITH_MARGINS,
-  MOBILE_BREAKPOINT,
-} from "../../Utils/patterns";
-import portfolioJSON from "../../data/portfolio.json";
+import { INNER_DIV_WITH_MARGINS } from "../../Utils/patterns";
 import { IPortfolioItem } from "./../../store/portfolio/types";
+import * as portfolioService from "./../../services/portfolio-service";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style.css";
+import CustomTooltip from "../tooltip";
 
 const SectionPortfolio = () => {
   const [portfolio, setPortfolio] = useState<IPortfolioItem[]>([]);
 
   useEffect(() => {
-    const port: IPortfolioItem[] = portfolioJSON.map((item) => {
-      return {
-        id: item.id,
-        name: item.name,
-        description: item.description,
-        highlightImg: item.highlightImg,
-        imgs: item.imgs,
-        storeUrl: item.storeUrl,
-        otherUrls: item.otherUrls,
-      };
+    const requestPortfolio = async () => {
+      return await portfolioService.getCompletePortfolio();
+    };
+
+    requestPortfolio().then((r) => {
+      setPortfolio(r.data);
     });
-    setPortfolio(port);
   }, []);
+
+  useEffect(() => {}, []);
 
   var carouselSettings = {
     className: "portfolioContainer",
@@ -74,14 +69,20 @@ const SectionPortfolio = () => {
         {portfolio.map((item: IPortfolioItem) => {
           return (
             <Grid item xs={12} key={uuid()}>
-              <a href={item.storeUrl}>
-                <img
-                  src={item.highlightImg}
-                  key={uuid()}
-                  className="portfolioImgStatic staticPortfolioVisibility"
-                  alt={`Baner of the game ${item.name}`}
-                />
-              </a>
+              <CustomTooltip
+                canShow={!!item.description && item.description.length > 0}
+                title="About:"
+                content={<>{item.description}</>}
+              >
+                <a href={item.storeUrl}>
+                  <img
+                    src={item.highlightImg}
+                    key={uuid()}
+                    className="portfolioImgStatic staticPortfolioVisibility"
+                    alt={`Baner of the game ${item.name}`}
+                  />
+                </a>
+              </CustomTooltip>
             </Grid>
           );
         })}

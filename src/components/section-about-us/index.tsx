@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from "react";
 
 import { Grid, Paper, Typography } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import "@fontsource/roboto";
 import { v4 as uuid } from "uuid";
+import Moment from "react-moment";
 
 import { ITeamMember } from "./../../store/team/types";
-import { INNER_DIV_WITH_MARGINS, THEME_BLACK } from "../../Utils/patterns";
+import {
+  INNER_DIV_WITH_MARGINS,
+  THEME_BLACK,
+  THEME_RED,
+} from "../../Utils/patterns";
 import CustomTooltip from "./../tooltip/index";
+import * as teamService from "./../../services/team-service";
 
 import teamJSON from "../../data/team.json";
 
@@ -18,19 +25,14 @@ const SectionAboutUs = () => {
   const [teamMembers, setTeamMembers] = useState<ITeamMember[]>([]);
 
   useEffect(() => {
-    const members: ITeamMember[] = teamJSON.map((item) => {
-      return {
-        id: item.id,
-        firstName: item.firstName,
-        lastName: item.lastName,
-        mainRole: item.mainRole,
-        secondaryRoles: item.secondaryRoles,
-        memberSince: new Date(item.memberSince),
-        picture: item.picture,
-      };
+    const requestTeam = async () => {
+      return await teamService.getAllMembers();
+    };
+
+    requestTeam().then((r) => {
+      setTeamMembers(r.data);
     });
-    setTeamMembers(members);
-  }, [teamJSON]);
+  }, []);
 
   const concatenateRoleSeparator = (
     currentIndex: number,
@@ -75,7 +77,7 @@ const SectionAboutUs = () => {
             <Typography color="inherit">
               <b>I'm here since: </b>
             </Typography>
-            {teamMember.memberSince.toLocaleDateString()}
+            <Moment format="YYYY, MMM">{teamMember.memberSince}</Moment>
           </>
         }
       >
@@ -91,6 +93,10 @@ const SectionAboutUs = () => {
       <div style={{ color: "black" }}>{teamMember.mainRole}</div>
     </Grid>
   );
+
+  const circularProgressStyle = {
+    color: THEME_RED,
+  };
 
   return (
     <div className="section aboutUsSection" id="section-aboutus">
@@ -108,9 +114,11 @@ const SectionAboutUs = () => {
           spacing={3}
           className="sectionInnerContentMargin"
         >
-          {teamMembers &&
-            teamMembers.length > 0 &&
-            teamMembers.map((member) => renderTeamMemberCard(member))}
+          {!teamMembers || teamMembers.length === 0 ? (
+            <CircularProgress style={circularProgressStyle} />
+          ) : (
+            teamMembers.map((member) => renderTeamMemberCard(member))
+          )}
         </Grid>
       </div>
     </div>
