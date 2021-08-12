@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { CircularProgress, Grid, Typography } from "@material-ui/core";
 
 import "@fontsource/roboto";
 import Slider from "react-slick";
 import { v4 as uuid } from "uuid";
 
-import { INNER_DIV_WITH_MARGINS } from "../../Utils/patterns";
+import { INNER_DIV_WITH_MARGINS, THEME_RED } from "../../Utils/patterns";
 import { IPortfolioItem } from "./../../store/portfolio/types";
 import * as portfolioService from "./../../services/portfolio-service";
+
+import portfolioJSON from "./../../data/portfolio.json";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -18,6 +20,11 @@ const SectionPortfolio = () => {
   const [portfolio, setPortfolio] = useState<IPortfolioItem[]>([]);
 
   useEffect(() => {
+    if (Boolean(process.env.REACT_APP_USE_API)) getDataFromAPI();
+    else getDataFromLocalJSON();
+  }, []);
+
+  const getDataFromAPI = () => {
     const requestPortfolio = async () => {
       return await portfolioService.getCompletePortfolio();
     };
@@ -25,11 +32,13 @@ const SectionPortfolio = () => {
     requestPortfolio().then((r) => {
       setPortfolio(r.data);
     });
-  }, []);
+  };
 
-  useEffect(() => {}, []);
+  const getDataFromLocalJSON = () => {
+    setPortfolio(portfolioJSON);
+  };
 
-  var carouselSettings = {
+  const carouselSettings = {
     className: "portfolioContainer",
     dots: false,
     infinite: true,
@@ -105,6 +114,10 @@ const SectionPortfolio = () => {
     </h3>
   );
 
+  const circularProgressStyle = {
+    color: THEME_RED,
+  };
+
   return (
     <div className="section portfolioSection" id="section-portfolio">
       <div style={INNER_DIV_WITH_MARGINS}>
@@ -113,8 +126,16 @@ const SectionPortfolio = () => {
             Our Portfolio
           </Typography>
         </Grid>
-        {renderStaticPortfolio()}
-        {renderSliderPortfolio()}
+        {!!portfolio && portfolio.length > 0 ? (
+          <>
+            {renderStaticPortfolio()}
+            {renderSliderPortfolio()})
+          </>
+        ) : (
+          <Grid container justifyContent="center">
+            <CircularProgress style={circularProgressStyle} />
+          </Grid>
+        )}
       </div>
     </div>
   );

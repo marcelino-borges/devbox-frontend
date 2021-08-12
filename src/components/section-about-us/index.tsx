@@ -25,6 +25,14 @@ const SectionAboutUs = () => {
   const [teamMembers, setTeamMembers] = useState<ITeamMember[]>([]);
 
   useEffect(() => {
+    if (Boolean(process.env.REACT_APP_USE_API)) {
+      getDataFromAPI();
+    } else {
+      getDataFromLocalJSON();
+    }
+  }, []);
+
+  const getDataFromAPI = () => {
     const requestTeam = async () => {
       return await teamService.getAllMembers();
     };
@@ -32,7 +40,23 @@ const SectionAboutUs = () => {
     requestTeam().then((r) => {
       setTeamMembers(r.data);
     });
-  }, []);
+  };
+
+  const getDataFromLocalJSON = () => {
+    setTeamMembers(
+      teamJSON.map((member) => {
+        return {
+          id: member.id,
+          firstName: member.firstName,
+          lastName: member.lastName,
+          mainRole: member.mainRole,
+          secondaryRoles: member.secondaryRoles,
+          memberSince: new Date(member.memberSince),
+          picture: member.picture,
+        };
+      })
+    );
+  };
 
   const concatenateRoleSeparator = (
     currentIndex: number,
