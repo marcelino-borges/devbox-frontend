@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import {
@@ -15,7 +15,7 @@ import "@fontsource/roboto";
 //   useGoogleReCaptcha,
 // } from "react-google-recaptcha-v3";
 import emailjs, { init } from "emailjs-com";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { INNER_DIV_WITH_MARGINS } from "../../Utils/patterns";
 
