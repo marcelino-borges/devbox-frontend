@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Link } from "react-router-dom";
 
@@ -7,9 +7,12 @@ import MenuIcon from "@material-ui/icons/Menu";
 
 import logo from "../../imgs/logo_80px.png";
 import { INNER_DIV_WITH_MARGINS, THEME_RED } from "../../Utils/patterns";
+import { signOut as firebaseSignOut } from "../../services/firebase-service";
 
 import "./style.css";
-import { LaptopWindows } from "@material-ui/icons";
+import { useDispatch, useSelector } from "react-redux";
+import { IApplicationState } from "../../store/root-reducer";
+import { signOut } from "../../store/firebase/actions";
 
 const menuStyle = {
   color: THEME_RED,
@@ -21,7 +24,15 @@ const dividerStyle = {
 };
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const userState = useSelector((state: IApplicationState) => state.user);
+
   const [showingSubNavbar, setShowingSubNavbar] = useState<boolean>(false);
+
+  const logOut = () => {
+    dispatch(signOut());
+    firebaseSignOut();
+  };
 
   return (
     <div className="navbar">
@@ -32,19 +43,28 @@ const Navbar = () => {
               <img src={logo} className="logo" />
             </Link>
           </Grid>
-          <Grid item spacing={3} className="menu">
-            <a href="#section-whatWeDo" className="link">
+          <Grid item className="menu">
+            <a href="/#section-whatWeDo" className="link">
               What we do
             </a>
-            <a href="#section-portfolio" className="link">
+            <a href="/#section-portfolio" className="link">
               Portfolio
             </a>
-            <a href="#section-aboutus" className="link">
+            <a href="/#section-aboutus" className="link">
               About us
             </a>
-            <a href="#section-contactus" className="link">
+            <a href="/#section-contactus" className="link">
               Contact
             </a>
+            {!userState.isLoggedIn ? (
+              <Link to="/login" className="link">
+                Sign In
+              </Link>
+            ) : (
+              <Link to="/" className="link" onClick={logOut}>
+                Sign Out
+              </Link>
+            )}
           </Grid>
           <Grid item className="menuVisibility">
             <IconButton
@@ -59,11 +79,12 @@ const Navbar = () => {
         </Grid>
       </div>
 
+      {/* MOBILE - DROPDOWN SUBMENU */}
       <div className={showingSubNavbar ? "subNavbar" : "hidden"}>
         <Grid container spacing={1}>
           <Grid item style={{ width: "100%" }}>
             <a
-              href="#section-whatWeDo"
+              href="/#section-whatWeDo"
               className="subLink"
               onClick={() => {
                 setShowingSubNavbar(false);
@@ -73,7 +94,7 @@ const Navbar = () => {
             </a>
             <Divider style={dividerStyle} />
             <a
-              href="#section-portfolio"
+              href="/#section-portfolio"
               className="subLink"
               onClick={() => {
                 setShowingSubNavbar(false);
@@ -83,7 +104,7 @@ const Navbar = () => {
             </a>
             <Divider style={dividerStyle} />
             <a
-              href="#section-aboutus"
+              href="/#section-aboutus"
               className="subLink"
               onClick={() => {
                 setShowingSubNavbar(false);
@@ -93,7 +114,7 @@ const Navbar = () => {
             </a>
             <Divider style={dividerStyle} />
             <a
-              href="#section-contactus"
+              href="/#section-contactus"
               className="subLink"
               onClick={() => {
                 setShowingSubNavbar(false);
@@ -101,6 +122,29 @@ const Navbar = () => {
             >
               Contact
             </a>
+            <Divider style={dividerStyle} />
+            {!userState.isLoggedIn ? (
+              <Link
+                to="/login"
+                className="subLink"
+                onClick={() => {
+                  setShowingSubNavbar(false);
+                }}
+              >
+                Sign In
+              </Link>
+            ) : (
+              <Link
+                to="/login"
+                className="subLink"
+                onClick={() => {
+                  setShowingSubNavbar(false);
+                  logOut();
+                }}
+              >
+                Sign Out
+              </Link>
+            )}
           </Grid>
         </Grid>
       </div>

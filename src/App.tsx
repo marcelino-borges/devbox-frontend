@@ -7,6 +7,9 @@ import Contact from "./pages/contact/index";
 import Portfolio from "./pages/portfolio/index";
 import { Helmet } from "react-helmet";
 import "./App.css";
+import PageNotFound from "./pages/404/index";
+import PageLogin from "./pages/login/index";
+import PageDashboard from "./pages/dashboard/index";
 
 function App() {
   return (
@@ -29,7 +32,15 @@ function App() {
           <Route path="/contact">
             <Contact />
           </Route>
-          <Route path="*">{/* PAGINA 404 */}</Route>
+          <Route path="/login">
+            <PageLogin />
+          </Route>
+          <Route path="/dashboard">
+            <PageDashboard />
+          </Route>
+          <Route path="*">
+            <PageNotFound />
+          </Route>
         </Switch>
       </div>
     </Router>

@@ -26,6 +26,30 @@ const SectionContact = () => {
   const { register, handleSubmit, reset } = useForm();
   // const { executeRecaptcha } = useGoogleReCaptcha();
 
+  const useTexfieldStyle = makeStyles({
+    fieldRoot: {
+      "&$fieldFocused $fieldNotchedOutline": {
+        borderColor: `white !important`,
+        borderWidth: "1px",
+      },
+      color: "#fff",
+      fontSize: 14,
+    },
+    fieldFocused: {},
+    fieldNotchedOutline: {
+      borderColor: "var(--theme-dark-red) !important",
+    },
+    labelRoot: {
+      "&$labelFocused": {
+        color: `white !important`,
+      },
+      color: "white",
+    },
+    labelFocused: {},
+  });
+
+  const textFieldClasses = useTexfieldStyle();
+
   const toastifySuccess = () => {
     toast("Form sent!", {
       position: "bottom-right",
@@ -106,6 +130,20 @@ const SectionContact = () => {
               variant="outlined"
               {...register("name")}
               id="contact"
+              className="TextfieldContact"
+              InputProps={{
+                classes: {
+                  root: textFieldClasses.fieldRoot,
+                  focused: textFieldClasses.fieldFocused,
+                  notchedOutline: textFieldClasses.fieldNotchedOutline,
+                },
+              }}
+              InputLabelProps={{
+                classes: {
+                  root: textFieldClasses.labelRoot,
+                  focused: textFieldClasses.labelFocused,
+                },
+              }}
             />
           </Grid>
           <Grid container item style={{ marginRight: "20px" }}>
@@ -116,6 +154,19 @@ const SectionContact = () => {
               variant="outlined"
               {...register("email")}
               id="contact"
+              InputProps={{
+                classes: {
+                  root: textFieldClasses.fieldRoot,
+                  focused: textFieldClasses.fieldFocused,
+                  notchedOutline: textFieldClasses.fieldNotchedOutline,
+                },
+              }}
+              InputLabelProps={{
+                classes: {
+                  root: textFieldClasses.labelRoot,
+                  focused: textFieldClasses.labelFocused,
+                },
+              }}
             />
           </Grid>
           <Grid container item style={{ marginRight: "20px" }}>
@@ -128,6 +179,19 @@ const SectionContact = () => {
               variant="outlined"
               {...register("message")}
               id="contact"
+              InputProps={{
+                classes: {
+                  root: textFieldClasses.fieldRoot,
+                  focused: textFieldClasses.fieldFocused,
+                  notchedOutline: textFieldClasses.fieldNotchedOutline,
+                },
+              }}
+              InputLabelProps={{
+                classes: {
+                  root: textFieldClasses.labelRoot,
+                  focused: textFieldClasses.labelFocused,
+                },
+              }}
             />
           </Grid>
 
@@ -145,7 +209,12 @@ const SectionContact = () => {
             justifyContent="flex-end"
             style={{ marginRight: "20px" }}
           >
-            <Button variant="outlined" className="submitButton" type="submit">
+            <Button
+              variant="outlined"
+              className="submitButton"
+              type="submit"
+              onSubmit={onSubmit}
+            >
               SEND
             </Button>
           </Grid>

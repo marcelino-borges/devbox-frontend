@@ -7,7 +7,6 @@ import { v4 as uuid } from "uuid";
 
 import { INNER_DIV_WITH_MARGINS, THEME_RED } from "../../Utils/patterns";
 import { IPortfolioItem } from "./../../store/portfolio/types";
-import * as portfolioService from "./../../services/portfolio-service";
 
 import portfolioJSON from "./../../data/portfolio.json";
 
@@ -15,23 +14,38 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style.css";
 import CustomTooltip from "../tooltip";
+import { useDispatch, useSelector } from "react-redux";
+import { getCompletePortfolioRequest } from "../../store/portfolio/actions";
+import { IApplicationState } from "./../../store/root-reducer";
 
 const SectionPortfolio = () => {
+  const dispatch = useDispatch();
   const [portfolio, setPortfolio] = useState<IPortfolioItem[]>([]);
+  const statePortfolio = useSelector(
+    (state: IApplicationState) => state.portfolio
+  );
 
   useEffect(() => {
     if (Boolean(process.env.REACT_APP_USE_API)) getDataFromAPI();
     else getDataFromLocalJSON();
   }, []);
 
-  const getDataFromAPI = () => {
-    const requestPortfolio = async () => {
-      return await portfolioService.getCompletePortfolio();
-    };
+  useEffect(() => {
+    if (!!statePortfolio.portfolio && statePortfolio.portfolio.length > 0) {
+      setPortfolio(statePortfolio.portfolio);
+    }
+  }, [statePortfolio.portfolio]);
 
-    requestPortfolio().then((r) => {
-      setPortfolio(r.data);
-    });
+  const getDataFromAPI = () => {
+    dispatch(getCompletePortfolioRequest());
+
+    // const requestPortfolio = async () => {
+    //   return await portfolioService.getPortfolio();
+    // };
+
+    // requestPortfolio().then((r) => {
+    //   setPortfolio(r.data);
+    // });
   };
 
   const getDataFromLocalJSON = () => {

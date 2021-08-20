@@ -1,0 +1,23 @@
+.loginPage {
+  padding-top: 80px;
+}
+
+.formContainer {
+  width: 50%;
+  height: 100%;
+  padding: 40px;
+  margin: auto;
+}
+
+.submitButton {
+  color: white !important;
+  width: 100px;
+  height: var(--button-height);
+  margin-top: 50px !important;
+  background-color: var(--theme-red);
+  border-color: #b23135ff !important;
+}
+
+.submitButton:hover {
+  background-color: #b23135ff !important;
+}

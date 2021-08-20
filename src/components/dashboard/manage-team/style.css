@@ -1,0 +1,27 @@
+.teamManagerContainer {
+  padding-bottom: 200px;
+}
+
+.teammatePictureInTable {
+  width: 50px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.iconActions {
+  color: var(--theme-red);
+}
+
+.profilePicture {
+  border-radius: 50%;
+  height: 56px;
+  width: auto;
+}
+
+.roleChip {
+  margin: 4px 0px;
+  margin-right: 4px;
+}
+
+.teamTablecontainer {
+}

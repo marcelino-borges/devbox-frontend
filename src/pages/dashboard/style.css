@@ -1,0 +1,65 @@
+.parentContainer {
+  padding: 20px 10px;
+}
+
+.dashboardUserPicture {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+}
+
+.profileInfoSection {
+  padding-left: 20px;
+  text-align: center;
+}
+
+.profileInfoDivider {
+  display: inline;
+}
+
+@media screen and (max-width: 600px) {
+  .profileInfoDivider {
+    display: none;
+  }
+
+  .profileInfoSection {
+    padding-left: 0px;
+    text-align: center;
+    padding-top: 10px;
+  }
+}
+
+.profileContainer {
+  border-radius: 8px;
+  background-color: #efefef;
+  padding: 20px;
+}
+
+.buttonStyle {
+  background-color: var(--theme-red);
+  line-height: var(--button-height);
+  margin-top: 8px;
+  margin-bottom: 28px;
+  width: 100%;
+  height: var(--button-height);
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 600px) {
+  .buttonStyle {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+}
+
+.buttonStyle:hover {
+  background-color: var(--theme-light-red);
+}
+
+.buttonStyle:active {
+  background-color: var(--theme-dark-red);
+}

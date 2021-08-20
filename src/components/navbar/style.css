@@ -4,6 +4,7 @@
   background-color: var(--theme-black);
   width: 100%;
   z-index: 999;
+  min-width: 370px;
 }
 
 .subNavbar {
@@ -30,7 +31,7 @@
   display: unset;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   .menu {
     display: none;
   }
@@ -69,7 +70,7 @@
   color: white;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
   .menuVisibility {
     display: unset;
   }

@@ -1,0 +1,45 @@
+[debug] [2021-08-13T21:36:17.908Z] ----------------------------------------------------------------------
+[debug] [2021-08-13T21:36:17.910Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\botel\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-08-13T21:36:17.910Z] CLI Version:   9.16.0
+[debug] [2021-08-13T21:36:17.910Z] Platform:      win32
+[debug] [2021-08-13T21:36:17.910Z] Node Version:  v14.17.4
+[debug] [2021-08-13T21:36:17.911Z] Time:          Fri Aug 13 2021 18:36:17 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2021-08-13T21:36:17.911Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-13T21:36:17.919Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2021-08-13T21:36:17.946Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-13T21:36:17.946Z] > authorizing via signed-in user (botelho.gt@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\Meus_Projetos_Outros\devbox.eng.br\frontend
+
+[debug] [2021-08-13T21:36:18.661Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2021-08-13T21:36:18.662Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[debug] [2021-08-13T21:40:12.372Z] ----------------------------------------------------------------------
+[debug] [2021-08-13T21:40:12.374Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\botel\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-08-13T21:40:12.375Z] CLI Version:   9.16.0
+[debug] [2021-08-13T21:40:12.375Z] Platform:      win32
+[debug] [2021-08-13T21:40:12.375Z] Node Version:  v14.17.4
+[debug] [2021-08-13T21:40:12.376Z] Time:          Fri Aug 13 2021 18:40:12 GMT-0300 (Horário Padrão de Brasília)
+[debug] [2021-08-13T21:40:12.376Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-08-13T21:40:12.381Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-08-13T21:40:12.381Z] > authorizing via signed-in user (botelho.gt@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  E:\Meus_Projetos_Outros\devbox.eng.br\frontend
+

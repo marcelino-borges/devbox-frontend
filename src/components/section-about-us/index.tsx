@@ -20,9 +20,14 @@ import teamJSON from "../../data/team.json";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./style.css";
+import { useDispatch, useSelector } from "react-redux";
+import { getTeamMembersRequest } from "./../../store/team/actions";
+import { IApplicationState } from "../../store/root-reducer";
 
 const SectionAboutUs = () => {
+  const dispatch = useDispatch();
   const [teamMembers, setTeamMembers] = useState<ITeamMember[]>([]);
+  const stateTeam = useSelector((state: IApplicationState) => state.team);
 
   useEffect(() => {
     if (Boolean(process.env.REACT_APP_USE_API)) {
@@ -32,30 +37,37 @@ const SectionAboutUs = () => {
     }
   }, []);
 
-  const getDataFromAPI = () => {
-    const requestTeam = async () => {
-      return await teamService.getAllMembers();
-    };
+  useEffect(() => {
+    if (!!stateTeam.teamMembers && stateTeam.teamMembers.length > 0) {
+      setTeamMembers(stateTeam.teamMembers);
+    }
+  }, [stateTeam.teamMembers]);
 
-    requestTeam().then((r) => {
-      setTeamMembers(r.data);
-    });
+  const getDataFromAPI = () => {
+    dispatch(getTeamMembersRequest());
+    // const requestTeam = async () => {
+    //   return await teamService.getTeamMembers();
+    // };
+
+    // requestTeam().then((r) => {
+    //   setTeamMembers(r.data);
+    // });
   };
 
   const getDataFromLocalJSON = () => {
-    setTeamMembers(
-      teamJSON.map((member) => {
-        return {
-          id: member.id,
-          firstName: member.firstName,
-          lastName: member.lastName,
-          mainRole: member.mainRole,
-          secondaryRoles: member.secondaryRoles,
-          memberSince: new Date(member.memberSince),
-          picture: member.picture,
-        };
-      })
-    );
+    // setTeamMembers();
+    // teamJSON.map((member) => {
+    //   return {
+    //     id: member.id,
+    //     firstName: member.firstName,
+    //     lastName: member.lastName,
+    //     mainRole: member.mainRole,
+    //     email: member.email,
+    //     secondaryRoles: member.secondaryRoles,
+    //     memberSince: new Date(member.memberSince),
+    //     picture: member.picture,
+    //   };
+    // })
   };
 
   const concatenateRoleSeparator = (

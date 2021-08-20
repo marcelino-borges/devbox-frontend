@@ -1,0 +1,87 @@
+.buttonGridItem {
+}
+
+.submitButton {
+  color: white !important;
+  width: 100px;
+  height: var(--button-height);
+  margin-top: 50px !important;
+  background-color: var(--theme-red);
+  border-color: #b23135ff !important;
+}
+
+.profilePictureForm {
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  max-width: 300px;
+  z-index: 1;
+}
+
+@media screen and (max-width: 960px) {
+  .buttonGridItem {
+    height: 56px;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+
+  .profilePictureForm {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.profilePictureFormGridItem {
+  text-align: center;
+}
+
+.pictureDivParent {
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+}
+
+.pictureIconDiv {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(150, 40, 40, 0);
+  border-radius: 50%;
+  z-index: 200;
+  position: relative;
+  top: -60px;
+}
+
+.iconSearchPicture {
+  border-radius: 0;
+  color: rgb(204, 204, 204);
+}
+
+.pictureIconDiv:hover {
+  background-color: rgba(150, 40, 40, 0.308);
+}
+
+.pictureIconDiv:hover .pictureEditIconOverlay {
+  color: rgba(197, 32, 32, 0.815);
+}
+
+.pictureEditIconOverlay {
+  z-index: 100;
+  color: rgba(197, 32, 32, 0);
+  margin-top: 33%;
+}
+
+.emailModalStyles {
+}
+
+.emailModalStyles .modalContent {
+}
+
+@media screen and (max-width: 960px) {
+  .emailModalStyles {
+  }
+
+  .emailModalStyles .modalContent {
+  }
+}

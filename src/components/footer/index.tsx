@@ -10,7 +10,7 @@ const Footer = () => (
         <Grid item>
           Website made by <b>Devbox Brasil</b> - Aug/2021
         </Grid>
-        <Grid item justifyContent="flex-end">
+        <Grid item>
           <Grid container item></Grid>
         </Grid>
       </Grid>
