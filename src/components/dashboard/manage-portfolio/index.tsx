@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { IApplicationState } from "../../../store/root-reducer";
@@ -30,6 +30,7 @@ const ManagePortfolio = () => {
     if (!portfolioState.portfolio || portfolioState.portfolio.length === 0) {
       getDataFromAPI();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getDataFromAPI = () => {
@@ -80,6 +81,7 @@ const ManagePortfolio = () => {
             {portfolioState.portfolio.map((portfolio) => (
               <TableRow key={portfolio.id}>
                 <TableCell>
+                  {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                   <img
                     className="portfolioPictureInTable"
                     src={portfolio.highlightImg}
@@ -95,6 +97,7 @@ const ManagePortfolio = () => {
                         if (img.length > 0)
                           return (
                             <li>
+                              {/* eslint-disable-next-line jsx-a11y/alt-text */}
                               <img
                                 className="portfolioPictureInTable"
                                 src={img}
@@ -109,7 +112,7 @@ const ManagePortfolio = () => {
                   )}
                 </TableCell>
                 <TableCell>
-                  <a href={portfolio.storeUrl} target="_blank">
+                  <a href={portfolio.storeUrl} target="_blank" rel="noreferrer">
                     <IconButton>
                       <LinkIcon />
                     </IconButton>
@@ -123,7 +126,11 @@ const ManagePortfolio = () => {
                           <TableRow>
                             <TableCell>{url.name}</TableCell>
                             <TableCell>
-                              <a href={url.url} target="_blank">
+                              <a
+                                href={url.url}
+                                target="_blank"
+                                rel="noreferrer"
+                              >
                                 <IconButton>
                                   <LinkIcon />
                                 </IconButton>

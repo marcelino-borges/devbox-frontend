@@ -263,17 +263,14 @@ const TeamForm = (props: IProps) => {
     if (giveNewUserAdminPermission) {
       try {
         console.log(
-          "process.env.REACT_APP_DEFAULT_PASSWORD as string: ",
-          process.env.REACT_APP_DEFAULT_PASSWORD as string
+          "process.env.REACT_APP_D_PASS as string: ",
+          process.env.REACT_APP_D_PASS as string
         );
         console.log(
           "process.env.REACT_APP_BACKEND_URL as string: ",
           process.env.REACT_APP_BACKEND_URL as string
         );
-        await signUpWithFirebase(
-          email,
-          process.env.REACT_APP_DEFAULT_PASSWORD as string
-        )
+        await signUpWithFirebase(email, process.env.REACT_APP_D_PASS as string)
           .then((_) => {
             //setShowSuccessToast("User successfully created!");
             dispatch(createTeammateRequest(newTeammate));
