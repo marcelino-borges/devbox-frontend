@@ -77,17 +77,17 @@ const SectionContact = () => {
         message: data.message,
       };
       if (
-        !process.env.REACT_APP_EMAILJS_SERVICE_ID ||
-        !process.env.REACT_APP_EMAILJS_TEMPLATE_ID ||
-        !process.env.REACT_APP_EMAILJS_USER_ID
+        !process.env.REACT_APP_EMAIL_SERVID ||
+        !process.env.REACT_APP_EMAIL_TEMPID ||
+        !process.env.REACT_APP_EMAIL_USER
       )
         return;
 
       await emailjs.send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        process.env.REACT_APP_EMAIL_SERVID,
+        process.env.REACT_APP_EMAIL_TEMPID,
         templateParams,
-        process.env.REACT_APP_EMAILJS_USER_ID
+        process.env.REACT_APP_EMAIL_USER
       );
       reset();
       toastifySuccess();
@@ -112,10 +112,10 @@ const SectionContact = () => {
 
   useEffect(() => {
     if (
-      process.env.REACT_APP_EMAILJS_USER_ID &&
-      process.env.REACT_APP_EMAILJS_USER_ID.length > 0
+      process.env.REACT_APP_EMAIL_USER &&
+      process.env.REACT_APP_EMAIL_USER.length > 0
     )
-      init(process.env.REACT_APP_EMAILJS_USER_ID);
+      init(process.env.REACT_APP_EMAIL_USER);
   }, []);
 
   const renderForm = (): JSX.Element => {
