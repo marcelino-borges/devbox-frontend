@@ -1,10 +1,8 @@
-import React, { ReactElement, useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Moment from "react-moment";
 import { useForm } from "react-hook-form";
 import "firebase/auth";
 
-import Table from "@material-ui/core/Table";
 import {
   Button,
   Checkbox,
@@ -15,23 +13,12 @@ import {
   FormControlLabel,
   Grid,
   IconButton,
-  makeStyles,
-  Paper,
   Slide,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
-  withStyles,
 } from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
 import EditIcon from "@material-ui/icons/Edit";
-import PersonIcon from "@material-ui/icons/Person";
 import ImageSearchIcon from "@material-ui/icons/ImageSearch";
 import SaveIcon from "@material-ui/icons/Save";
-import Modal from "@material-ui/core/Modal";
 
 import { IApplicationState } from "../../../../store/root-reducer";
 import LightTextfield from "../../../shared/textfield-light";
@@ -41,7 +28,6 @@ import moment from "moment";
 import {
   createTeammateRequest,
   setShowFailToast,
-  setShowSuccessToast,
   updateTeammateRequest,
 } from "./../../../../store/team/actions";
 import { uploadImg } from "../../../../services/file-upload-service";
@@ -71,7 +57,6 @@ const TeamForm = (props: IProps) => {
   const [newUser, setNewUser] = useState<ITeamMember>();
   const [giveNewUserAdminPermission, setGiveNewUserAdminPermission] =
     useState<boolean>(false);
-  const [hasFilledForm, setHasFilledForm] = useState<boolean>(false);
 
   const { register, handleSubmit, reset, setValue, getValues } = useForm();
   const hiddenFileInput = React.useRef(null);
@@ -81,6 +66,7 @@ const TeamForm = (props: IProps) => {
       getDataFromAPI();
     }
     setValue("memberSince", new Date());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -101,6 +87,7 @@ const TeamForm = (props: IProps) => {
       );
       setSelectedFile(undefined);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teammateEdited]);
 
   useEffect(() => {
@@ -117,6 +104,7 @@ const TeamForm = (props: IProps) => {
     ) {
       dispatch(deleteImgRequest({ url: fileUploadState.lastUploadedImg }));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fileUploadState.lastUploadedImg, fileUploadState.error]);
 
   const getDataFromAPI = () => {};
