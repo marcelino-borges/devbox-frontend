@@ -14,7 +14,6 @@ import { THEME_RED } from "../../../../Utils/patterns";
 import { setShowFailToast } from "./../../../../store/team/actions";
 import { uploadImg } from "../../../../services/file-upload-service";
 import { IUploadFileImgParams } from "../../../../store/file-upload/types";
-import { signUp } from "../../../../services/firebase-service";
 import { deleteImgRequest } from "../../../../store/file-upload/actions";
 
 import "react-toastify/dist/ReactToastify.min.css";
