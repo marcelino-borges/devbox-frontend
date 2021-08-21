@@ -3,34 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import "firebase/auth";
 
-import {
-  Button,
-  Checkbox,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControlLabel,
-  Grid,
-  IconButton,
-  Slide,
-} from "@material-ui/core";
+import { Button, CircularProgress, Grid, IconButton } from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
-import EditIcon from "@material-ui/icons/Edit";
 import ImageSearchIcon from "@material-ui/icons/ImageSearch";
 import SaveIcon from "@material-ui/icons/Save";
 
 import { IApplicationState } from "../../../../store/root-reducer";
 import LightTextfield from "../../../shared/textfield-light";
-import { ITeamMember } from "../../../../store/team/types";
 import { THEME_RED } from "../../../../Utils/patterns";
-import moment from "moment";
-import {
-  createTeammateRequest,
-  setShowFailToast,
-  updateTeammateRequest,
-} from "./../../../../store/team/actions";
+import { setShowFailToast } from "./../../../../store/team/actions";
 import { uploadImg } from "../../../../services/file-upload-service";
 import { IUploadFileImgParams } from "../../../../store/file-upload/types";
 import { signUp } from "../../../../services/firebase-service";
@@ -55,7 +36,6 @@ const PortfolioForm = (props: IProps) => {
     (state: IApplicationState) => state.portfolio
   );
   const fileUploadState = useSelector((state: IApplicationState) => state.file);
-  const [openEmailModal, setOpenEmailModal] = useState<boolean>(false);
   const dispatch = useDispatch();
 
   const [portfolioEdited, setPortfolioEdited] = useState<IPortfolioItem>();
@@ -63,8 +43,6 @@ const PortfolioForm = (props: IProps) => {
   const [selectedFile, setSelectedFile] =
     useState<{ file: any; url: string }>();
   const [newPortfolio, setNewPortfolio] = useState<IPortfolioItem>();
-  const [giveNewUserAdminPermission, setGiveNewUserAdminPermission] =
-    useState<boolean>(false);
 
   const { register, handleSubmit, reset, setValue, getValues } = useForm();
   const hiddenFileInput = React.useRef(null);
@@ -110,21 +88,6 @@ const PortfolioForm = (props: IProps) => {
       userSenderName: userState.user.displayName || "",
     };
     return await uploadImg(imgToUpload);
-  };
-
-  const signUpWithFirebase = async (
-    email: string,
-    password: string
-  ): Promise<firebase.default.auth.UserCredential> => {
-    return await signUp(email, password)
-      .then((credential: firebase.default.auth.UserCredential) => {
-        console.log("success signing up on firebase. Credential: ", credential);
-        return credential;
-      })
-      .catch((e) => {
-        console.log("error signing up on firebase: ", e);
-        return e;
-      });
   };
 
   const onSubmit = async (data: any) => {
@@ -221,8 +184,6 @@ const PortfolioForm = (props: IProps) => {
     setChipData([]);
     setSelectedFile(undefined);
     setPortfolioEdited(undefined);
-    setGiveNewUserAdminPermission(false);
-    setOpenEmailModal(false);
     setNewPortfolio(undefined);
     reset();
   };
