@@ -1,3 +1,7 @@
+.portfolioManagerContainer {
+  padding-bottom: 50px;
+}
+
 .portfolioPictureInTable {
   width: 150px;
   height: auto;
@@ -6,4 +10,8 @@
 
 .iconActions {
   color: var(--theme-red);
+}
+
+.portfolioCenterText {
+  text-align: center;
 }

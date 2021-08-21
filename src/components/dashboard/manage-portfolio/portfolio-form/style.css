@@ -1,0 +1,64 @@
+.portfolioSubmitButton {
+  color: white !important;
+  height: var(--button-height);
+  width: 100%;
+  margin-top: 30px !important;
+  background-color: var(--theme-red);
+  border-color: #b23135ff !important;
+}
+
+.portfolioPictureForm {
+  border-radius: 8px;
+  max-height: 100%;
+  max-width: 100%;
+  z-index: 1;
+}
+
+@media screen and (max-width: 960px) {
+  .portfolioSubmitButton {
+    width: 100%;
+  }
+}
+
+.portfolioPictureFormGridItem {
+  text-align: left;
+}
+
+.portfolioPictureDivParent {
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  max-height: 55px;
+  overflow: hidden;
+}
+
+.portfolioPictureIconDiv {
+  background-color: rgba(150, 40, 40, 0);
+  border-radius: 8px;
+  z-index: 200;
+  position: relative;
+  top: -60px;
+  height: 55px;
+  width: auto;
+}
+
+.iconSearchPicture {
+  border-radius: 0;
+  color: rgb(204, 204, 204);
+}
+
+.portfolioPictureIconDiv:hover {
+  background-color: rgba(150, 40, 40, 0.308);
+}
+
+.pictureIportfolioPictureIconDivconDiv:hover .pictureEditIconOverlay {
+  color: rgba(197, 32, 32, 0.815);
+}
+
+.pictureEditIconOverlay {
+  z-index: 100;
+  color: rgba(197, 32, 32, 0);
+  margin-top: 33%;
+  height: 100%;
+  width: 100%;
+}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { IApplicationState } from "../../../store/root-reducer";
@@ -6,6 +6,7 @@ import { IApplicationState } from "../../../store/root-reducer";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./style.css";
 import {
+  Chip,
   IconButton,
   Table,
   TableBody,
@@ -13,18 +14,32 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  Typography,
   withStyles,
 } from "@material-ui/core";
-import { getCompletePortfolioRequest } from "../../../store/portfolio/actions";
+import {
+  deletePortfolioRequest,
+  getCompletePortfolioRequest,
+  setShowFailToast,
+  setShowSuccessToast,
+} from "../../../store/portfolio/actions";
 import LinkIcon from "@material-ui/icons/Link";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import PortfolioForm from "./portfolio-form/index";
+import { IPortfolioItem } from "../../../store/portfolio/types";
+import { toast } from "react-toastify";
+import ToastConfigured from "../../toast";
+import { deleteImgRequest } from "../../../store/file-upload/actions";
 
 const ManagePortfolio = () => {
   const portfolioState = useSelector(
     (state: IApplicationState) => state.portfolio
   );
+  const fileState = useSelector((state: IApplicationState) => state.file);
   const dispatch = useDispatch();
+
+  const [portfolioEdited, setPortfolioEdited] = useState<IPortfolioItem>();
 
   useEffect(() => {
     if (!portfolioState.portfolio || portfolioState.portfolio.length === 0) {
@@ -32,6 +47,34 @@ const ManagePortfolio = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    if (
+      (portfolioState.showFailToast &&
+        portfolioState.showFailToast.length > 0) ||
+      (fileState.showFailToast && fileState.showFailToast.length > 0)
+    )
+      toast.error(portfolioState.showFailToast);
+    dispatch(setShowFailToast(undefined));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [portfolioState.showFailToast, fileState.showFailToast]);
+
+  useEffect(() => {
+    if (
+      portfolioState.showSuccessToast &&
+      portfolioState.showSuccessToast.length > 0
+    ) {
+      toast.success(portfolioState.showSuccessToast);
+      dispatch(setShowSuccessToast(undefined));
+    } else if (
+      fileState.showSuccessToast &&
+      fileState.showSuccessToast.length > 0
+    ) {
+      toast.success(fileState.showSuccessToast);
+      dispatch(setShowSuccessToast(undefined));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [portfolioState.showSuccessToast, fileState.showFailToast]);
 
   const getDataFromAPI = () => {
     dispatch(getCompletePortfolioRequest());
@@ -50,21 +93,18 @@ const ManagePortfolio = () => {
   }))(TableCell);
 
   return (
-    <div>
+    <div className="portfolioManagerContainer">
+      <ToastConfigured />
       <TableContainer>
         <Table>
           <TableHead>
             <TableRow>
-              <StyledTableHeadCell align="center">Picture</StyledTableHeadCell>
-              <StyledTableHeadCell align="center">Name</StyledTableHeadCell>
-              <StyledTableHeadCell align="center">
-                Description
-              </StyledTableHeadCell>
               <StyledTableHeadCell align="center">
                 Highlight Image
               </StyledTableHeadCell>
+              <StyledTableHeadCell align="center">Name</StyledTableHeadCell>
               <StyledTableHeadCell align="center">
-                Other Images
+                Description
               </StyledTableHeadCell>
               <StyledTableHeadCell align="center">
                 Store URL
@@ -78,8 +118,8 @@ const ManagePortfolio = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {portfolioState.portfolio.map((portfolio) => (
-              <TableRow key={portfolio.id}>
+            {portfolioState.portfolio.map((portfolio: IPortfolioItem) => (
+              <TableRow key={portfolio._id}>
                 <TableCell>
                   {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                   <img
@@ -88,30 +128,11 @@ const ManagePortfolio = () => {
                     alt={`${portfolio.name}'s picture`}
                   />
                 </TableCell>
-                <TableCell>{portfolio.name}</TableCell>
-                <TableCell>{portfolio.description}</TableCell>
-                <TableCell>
-                  {!!portfolio.imgs && portfolio.imgs.length > 0 ? (
-                    <ul>
-                      {portfolio.imgs.map((img) => {
-                        if (img.length > 0)
-                          return (
-                            <li>
-                              {/* eslint-disable-next-line jsx-a11y/alt-text */}
-                              <img
-                                className="portfolioPictureInTable"
-                                src={img}
-                              />
-                            </li>
-                          );
-                        else return "-";
-                      })}
-                    </ul>
-                  ) : (
-                    "-"
-                  )}
+                <TableCell style={{ textAlign: "center" }}>
+                  {portfolio.name}
                 </TableCell>
-                <TableCell>
+                <TableCell>{portfolio.description}</TableCell>
+                <TableCell style={{ textAlign: "center" }}>
                   <a href={portfolio.storeUrl} target="_blank" rel="noreferrer">
                     <IconButton>
                       <LinkIcon />
@@ -119,36 +140,49 @@ const ManagePortfolio = () => {
                   </a>
                 </TableCell>
                 <TableCell>
-                  <Table>
-                    <TableBody>
-                      {portfolio.otherUrls.map((url) => {
-                        return (
-                          <TableRow>
-                            <TableCell>{url.name}</TableCell>
-                            <TableCell>
-                              <a
-                                href={url.url}
-                                target="_blank"
-                                rel="noreferrer"
-                              >
-                                <IconButton>
-                                  <LinkIcon />
-                                </IconButton>
-                              </a>
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
+                  {!!portfolio.otherUrls && portfolio.otherUrls.length > 0 ? (
+                    portfolio.otherUrls.map((url) => {
+                      return (
+                        <Chip
+                          style={{ margin: "4px" }}
+                          label={
+                            <a
+                              href={url}
+                              target="_blank"
+                              rel="noreferrer"
+                              style={{
+                                textDecoration: "none",
+                                color: "#4589f5",
+                              }}
+                            >
+                              {url}
+                            </a>
+                          }
+                        />
+                      );
+                    })
+                  ) : (
+                    <Typography style={{ textAlign: "center" }}>-</Typography>
+                  )}
                 </TableCell>
                 <TableCell>
                   <IconButton>
-                    <EditIcon className="iconActions" />
+                    <EditIcon
+                      onClick={() => setPortfolioEdited(portfolio)}
+                      className="iconActions"
+                    />
                   </IconButton>
                 </TableCell>
                 <TableCell>
-                  <IconButton>
+                  <IconButton
+                    onClick={() => {
+                      dispatch(
+                        deleteImgRequest({ url: portfolio.highlightImg })
+                      );
+                      //TODO: Delete imgs too
+                      dispatch(deletePortfolioRequest(portfolio));
+                    }}
+                  >
                     <DeleteIcon className="iconActions" />
                   </IconButton>
                 </TableCell>
@@ -157,6 +191,11 @@ const ManagePortfolio = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <div style={{ marginTop: "50px" }} />
+      <PortfolioForm
+        portfolioEdited={portfolioEdited}
+        setPortfolioEdited={setPortfolioEdited}
+      />
     </div>
   );
 };

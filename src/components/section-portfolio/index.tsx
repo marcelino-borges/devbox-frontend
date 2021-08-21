@@ -27,7 +27,7 @@ const SectionPortfolio = () => {
 
   useEffect(() => {
     if (Boolean(process.env.REACT_APP_USE_API)) getDataFromAPI();
-    else getDataFromLocalJSON();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -46,10 +46,6 @@ const SectionPortfolio = () => {
     // requestPortfolio().then((r) => {
     //   setPortfolio(r.data);
     // });
-  };
-
-  const getDataFromLocalJSON = () => {
-    setPortfolio(portfolioJSON);
   };
 
   const carouselSettings = {

@@ -45,7 +45,7 @@ function reducer(state = initialState, action: any): ITeamStates {
       return {
         ...state,
         loading: false,
-        teamMembers: stateMembers,
+        teamMembers: [ ...stateMembers ],
         showSuccessToast: "Teammate successfully created!",
       }
     }

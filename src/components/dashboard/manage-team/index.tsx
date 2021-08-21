@@ -44,6 +44,7 @@ const ManageTeam = () => {
     if (!teamState.teamMembers || teamState.teamMembers.length === 0) {
       getDataFromAPI();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -53,6 +54,7 @@ const ManageTeam = () => {
     )
       toast.error(teamState.showFailToast);
     dispatch(setShowFailToast(undefined));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamState.showFailToast, fileState.showFailToast]);
 
   useEffect(() => {
@@ -66,6 +68,7 @@ const ManageTeam = () => {
       toast.success(fileState.showSuccessToast);
       dispatch(setShowSuccessToast(undefined));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teamState.showSuccessToast, fileState.showFailToast]);
 
   const getDataFromAPI = () => {

@@ -22,7 +22,8 @@ export function* createTeammate({ payload }: any): any {
   try {
     const response = yield call(createTeammate, payload);
     if(response &&
-      response.status === 200 &&
+      (response.status === 200 ||
+      response.status === 201) &&
       response.data.status !== "error") {
         yield put(actions.createTeammateSuccess(response.data));
       }

@@ -29,6 +29,7 @@ export interface ITeamMember {
   secondaryRoles: string[],
   memberSince: Date,
   picture: string,
+  appearOnHome?: boolean,
 }
 
 export interface ITeamStates {

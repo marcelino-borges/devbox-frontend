@@ -17,6 +17,9 @@ interface IProps {
   value?: any;
   inputRef?: any;
   endAdornment?: any;
+  multiline?: boolean;
+  maxRows?: number;
+  rows?: number;
 }
 
 const LightTextfield = (props: IProps) => {
@@ -48,6 +51,9 @@ const LightTextfield = (props: IProps) => {
   return (
     <TextField
       fullWidth
+      multiline={props.multiline}
+      maxRows={props.maxRows}
+      rows={props.rows}
       required={props.required || false}
       label={props.label}
       variant="outlined"

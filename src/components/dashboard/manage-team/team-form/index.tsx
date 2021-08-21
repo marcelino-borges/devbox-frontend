@@ -160,9 +160,10 @@ const TeamForm = (props: IProps) => {
         uploadUserPicture().then((res: any) => {
           console.log("pic url (edit): ", res.data.url);
           teammateToSave = {
+            _id: teammateEdited._id,
             firstName: firstName,
             lastName: lastName,
-            email: "",
+            email: teammateEdited.email,
             mainRole: mainRole,
             memberSince: new Date(memberSince),
             secondaryRoles: chipData || [],
