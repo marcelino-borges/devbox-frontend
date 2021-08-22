@@ -3,6 +3,7 @@ export enum SignInTypes {
   SIGNIN_ERROR = "@signin/SIGNIN_ERROR",
   SIGNIN_REQUEST = "@signin/SIGNIN_REQUEST",
   SET_AUTHENTICATED_USER = "@signin/SET_AUTHENTICATED_USER",
+  CLEAR_AUTHENTICATED_USER = "@signin/CLEAR_AUTHENTICATED_USER",
   SET_USER_COMPLEMENTARY_DATA = "@signin/SET_USER_COMPLEMENTARY_DATA",
   SIGNOUT = "@signin/SIGNOUT",
 }
@@ -26,6 +27,6 @@ export interface IFirebaseUser {
 export interface ISignInStates {
   loading: boolean;
   error: any;
-  user: IFirebaseUser;
+  user?: IFirebaseUser;
   isLoggedIn: boolean;
 }

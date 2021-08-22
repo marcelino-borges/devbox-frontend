@@ -10,17 +10,17 @@ export const getPortfolio = async (): Promise<AxiosResponse<any>> => {
 }
 
 export const getPortfolioByName = async (name: string) => {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_URL}/portfolio/name/${name}`);
+  return await client.get(`/portfolio/name/${name}`);
 }
 
 export const createPortfolio = async (job: IPortfolioItem) => {
-  return await axios.post(`${process.env.REACT_APP_BACKEND_URL}/portfolio/`, job);
+  return await client.post(`/portfolio/`, job);
 }
 
 export const updatePortfolio = async (job: IPortfolioItem) => {
-  return await axios.put(`${process.env.REACT_APP_BACKEND_URL}/portfolio/`, job);
+  return await client.put(`/portfolio/`, job);
 }
 
 export const deletePortfolio = async (id: string, name: string) => {
-  return await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/portfolio?id=${id}&name=${name}`);
+  return await client.delete(`/portfolio?id=${id}&name=${name}`);
 }

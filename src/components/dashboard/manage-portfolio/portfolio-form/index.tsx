@@ -82,9 +82,16 @@ const PortfolioForm = (props: IProps) => {
   }, [fileUploadState.lastUploadedImg, fileUploadState.error]);
 
   const uploadPicture = async () => {
+    const userName: string =
+      !!userState.user &&
+      userState.user !== null &&
+      !!userState.user.displayName &&
+      userState.user.displayName !== null
+        ? userState.user.displayName
+        : "";
     const imgToUpload: IUploadFileImgParams = {
       img: selectedFile?.file,
-      userSenderName: userState.user.displayName || "",
+      userSenderName: userName,
     };
     return await uploadImg(imgToUpload);
   };

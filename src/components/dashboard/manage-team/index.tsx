@@ -32,6 +32,7 @@ import ToastConfigured from "./../../toast/index";
 import "react-toastify/dist/ReactToastify.min.css";
 import "./style.css";
 import { deleteImgRequest } from "../../../store/file-upload/actions";
+import { uuid } from "uuidv4";
 
 const ManageTeam = () => {
   const teamState = useSelector((state: IApplicationState) => state.team);
@@ -133,7 +134,7 @@ const ManageTeam = () => {
                 <TableCell>
                   <ul>
                     {teammate.secondaryRoles.map((role) => (
-                      <li>{role}</li>
+                      <li key={uuid()}>{role}</li>
                     ))}
                   </ul>
                 </TableCell>

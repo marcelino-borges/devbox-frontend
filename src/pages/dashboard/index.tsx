@@ -34,6 +34,7 @@ const PageDashboard = () => {
 
   useEffect(() => {
     if (
+      !!userState.user &&
       userState.isLoggedIn &&
       !!userState.user.email &&
       userState.user.email.length > 0
@@ -49,6 +50,7 @@ const PageDashboard = () => {
     if (!!teammate) {
       dispatch(setUserComplementaryData(teammate));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [teammate]);
 
   return (
@@ -64,13 +66,7 @@ const PageDashboard = () => {
               alignItems="center"
               justifyContent="space-evenly"
             >
-              <Grid
-                item
-                justifyContent="center"
-                xs={12}
-                sm={2}
-                style={{ textAlign: "center" }}
-              >
+              <Grid item xs={12} sm={2} style={{ textAlign: "center" }}>
                 {!!teammate &&
                 !!teammate.picture &&
                 teammate.picture.length > 0 ? (
@@ -86,14 +82,9 @@ const PageDashboard = () => {
                   />
                 )}
               </Grid>
-              <Grid
-                item
-                justifyContent="center"
-                className="profileInfoSection"
-                xs={12}
-                sm={2}
-              >
-                {userState.user.displayName &&
+              <Grid item className="profileInfoSection" xs={12} sm={2}>
+                {!!userState.user &&
+                !!userState.user.displayName &&
                 userState.user.displayName.length > 0 ? (
                   <span>
                     <b>NAME</b>
@@ -113,13 +104,7 @@ const PageDashboard = () => {
                 flexItem
                 className="profileInfoDivider"
               />
-              <Grid
-                item
-                justifyContent="center"
-                className="profileInfoSection"
-                xs={12}
-                sm={2}
-              >
+              <Grid item className="profileInfoSection" xs={12} sm={2}>
                 {!!teammate &&
                 !!teammate.mainRole &&
                 teammate.mainRole.length > 0 ? (
@@ -141,13 +126,7 @@ const PageDashboard = () => {
                 flexItem
                 className="profileInfoDivider"
               />
-              <Grid
-                item
-                justifyContent="center"
-                className="profileInfoSection"
-                xs={12}
-                sm={2}
-              >
+              <Grid item className="profileInfoSection" xs={12} sm={2}>
                 {!!teammate && !!teammate.memberSince ? (
                   <span>
                     <b>MEMBER SINCE</b>

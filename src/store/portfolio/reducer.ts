@@ -119,7 +119,6 @@ function reducer(state = initialState, action: any): IPortfolioStates {
       return {
         ...state,
         loading: false,
-        error: action.payload,
         showFailToast: action.payload,
       }
     }

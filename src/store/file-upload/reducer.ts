@@ -19,7 +19,6 @@ function reducer(state = initialState, action: any): IFileUploadStates {
         ...state,
         loading: false,
         tempUploadedFileUrl: action.payload,
-        showSuccessToast: "Image successfully uploaded!",
         lastUploadedImg: action.payload,
       }
     }

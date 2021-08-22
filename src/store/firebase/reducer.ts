@@ -1,13 +1,10 @@
-import { PlaylistAddOutlined } from "@material-ui/icons";
-import { ISignInStates, SignInTypes } from "./types";
+import { IFirebaseUser, ISignInStates, SignInTypes } from "./types";
 
 const initialState: ISignInStates = {
   error: undefined,
   loading: false,
-  user: {
-    email: "",
-  },
   isLoggedIn: false,
+  user: undefined,
 }
 
 function reducer(state = initialState, action: any): ISignInStates {
@@ -26,12 +23,35 @@ function reducer(state = initialState, action: any): ISignInStates {
       };
     }
     case SignInTypes.SET_AUTHENTICATED_USER: {
+      const firebaseUser: IFirebaseUser = {
+        email: action.payload.email,
+        displayName: action.payload.displayName,
+        phoneNumber: action.payload.phoneNumber,
+        photoURL: action.payload.photoURL,
+        refreshToken: action.payload.refreshToken,
+        uid: action.payload.uid,
+        emailVerified: action.payload.emailVerified,
+        isAnonymous: action.payload.isAnonymous,
+        apiKey: action.payload.apiKey,
+        authDomain: action.payload.authDomain,
+        lastLoginAt: action.payload.lastLoginAt,
+        createdAt: action.payload.createdAt,
+      };
+
       return {
         ...state,
         loading: false,
         error: initialState.error,
-        user: action.payload,
+        user: firebaseUser,
         isLoggedIn: true,
+      };
+    }
+    case SignInTypes.CLEAR_AUTHENTICATED_USER: {
+      return {
+        ...state,
+        loading: false,
+        user: undefined,
+        isLoggedIn: false,
       };
     }
     case SignInTypes.SET_USER_COMPLEMENTARY_DATA: {
@@ -40,7 +60,7 @@ function reducer(state = initialState, action: any): ISignInStates {
         loading: false,
         error: initialState.error,
         user: {
-          ...state.user,
+          ...state.user as IFirebaseUser,
           displayName: action.payload.firstName + " " + action.payload.lastName,
           photoURL: action.payload.picture,
         },

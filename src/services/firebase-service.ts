@@ -5,8 +5,7 @@ import firebase from "firebase/app";
 export const signIn = (email: string, password: string): Promise<any> => {
   try {
       const credentials = firebase
-      .auth()
-      .signInWithEmailAndPassword(email, password);
+      .auth().setPersistence(firebase.auth.Auth.Persistence.SESSION).then(() => firebase.auth().signInWithEmailAndPassword(email, password));
 
       return credentials;
   } catch (e: any) {

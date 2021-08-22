@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { Divider, Grid, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -12,7 +12,12 @@ import { signOut as firebaseSignOut } from "../../services/firebase-service";
 import "./style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { IApplicationState } from "../../store/root-reducer";
-import { signOut } from "../../store/firebase/actions";
+import {
+  clearAuthenticatedUser,
+  setAuthenticatedUser,
+} from "../../store/firebase/actions";
+import firebase from "firebase";
+import { IFirebaseUser } from "../../store/firebase/types";
 
 const menuStyle = {
   color: THEME_RED,
@@ -26,12 +31,74 @@ const dividerStyle = {
 const Navbar = () => {
   const dispatch = useDispatch();
   const userState = useSelector((state: IApplicationState) => state.user);
+  const location = useLocation();
 
   const [showingSubNavbar, setShowingSubNavbar] = useState<boolean>(false);
 
   const logOut = () => {
-    dispatch(signOut());
     firebaseSignOut();
+    dispatch(clearAuthenticatedUser());
+  };
+
+  useEffect(() => {
+    const firebaseCurrentUser: firebase.User | null =
+      firebase.auth().currentUser;
+
+    if (!!firebaseCurrentUser && firebaseCurrentUser !== null) {
+      const user: IFirebaseUser = {
+        email: firebaseCurrentUser.email || "",
+        displayName: firebaseCurrentUser.displayName,
+        phoneNumber: firebaseCurrentUser.phoneNumber,
+        photoURL: firebaseCurrentUser.photoURL,
+        refreshToken: firebaseCurrentUser.refreshToken,
+        uid: firebaseCurrentUser.uid,
+        emailVerified: firebaseCurrentUser.emailVerified,
+        isAnonymous: firebaseCurrentUser.isAnonymous,
+      };
+
+      dispatch(setAuthenticatedUser(user));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const renderUserMenu = (
+    cssClass: string,
+    onClickWhenLoggedIn?: CallableFunction
+  ) => {
+    if (!userState.isLoggedIn) {
+      return (
+        <Link to="/login" className={cssClass}>
+          Sign In
+        </Link>
+      );
+    } else {
+      if (!location.pathname.includes("/dashboard")) {
+        return (
+          <Link
+            to="/dashboard"
+            className={cssClass}
+            onClick={() => {
+              if (!!onClickWhenLoggedIn) onClickWhenLoggedIn();
+            }}
+          >
+            Dashboard
+          </Link>
+        );
+      } else {
+        return (
+          <Link
+            to="/"
+            className={cssClass}
+            onClick={() => {
+              if (!!onClickWhenLoggedIn) onClickWhenLoggedIn();
+              logOut();
+            }}
+          >
+            Sign out
+          </Link>
+        );
+      }
+    }
   };
 
   return (
@@ -40,7 +107,7 @@ const Navbar = () => {
         <Grid container justifyContent="space-between" alignItems="center">
           <Grid item>
             <Link to="/">
-              <img src={logo} className="logo" />
+              <img src={logo} className="logo" alt="Devbox logo" />
             </Link>
           </Grid>
           <Grid item className="menu">
@@ -56,15 +123,19 @@ const Navbar = () => {
             <a href="/#section-contactus" className="link">
               Contact
             </a>
-            {!userState.isLoggedIn ? (
+            {renderUserMenu("link")}
+
+            {/* {!userState.isLoggedIn ? (
               <Link to="/login" className="link">
                 Sign In
               </Link>
-            ) : (
-              <Link to="/" className="link" onClick={logOut}>
-                Sign Out
-              </Link>
-            )}
+            ) :
+              {location.pathname !== "/dashboard" ? <Link to="/dashboard" className="link">
+                Dashboard
+              </Link> : <Link to="/" className="link" onClick={logOut}>
+              Sign out
+            </Link>}
+            } */}
           </Grid>
           <Grid item className="menuVisibility">
             <IconButton
@@ -123,28 +194,8 @@ const Navbar = () => {
               Contact
             </a>
             <Divider style={dividerStyle} />
-            {!userState.isLoggedIn ? (
-              <Link
-                to="/login"
-                className="subLink"
-                onClick={() => {
-                  setShowingSubNavbar(false);
-                }}
-              >
-                Sign In
-              </Link>
-            ) : (
-              <Link
-                to="/login"
-                className="subLink"
-                onClick={() => {
-                  setShowingSubNavbar(false);
-                  logOut();
-                }}
-              >
-                Sign Out
-              </Link>
-            )}
+
+            {renderUserMenu("subLink")}
           </Grid>
         </Grid>
       </div>

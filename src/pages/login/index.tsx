@@ -1,15 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Redirect, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Button,
-  Grid,
-  makeStyles,
-  TextField,
-  CircularProgress,
-} from "@material-ui/core";
+import { Button, Grid, CircularProgress } from "@material-ui/core";
 import { INNER_DIV_WITH_MARGINS, THEME_RED } from "../../Utils/patterns";
 import { SignInMessages } from "../../Utils/firebase-utils";
 import LightTextfield from "./../../components/shared/textfield-light/index";
@@ -24,6 +18,8 @@ import {
 
 import "react-toastify/dist/ReactToastify.min.css";
 import "./style.css";
+import firebase from "firebase";
+import { IFirebaseUser } from "../../store/firebase/types";
 
 const PageLogin = () => {
   let history = useHistory();
@@ -39,31 +35,6 @@ const PageLogin = () => {
   const buttonStyle = {
     backgroundColor: THEME_RED,
   };
-
-  const useTexfieldStyle = makeStyles({
-    fieldRoot: {
-      "&$fieldFocused $fieldNotchedOutline": {
-        borderColor: `var(--theme-red) !important`,
-        borderWidth: "1px",
-      },
-      color: "#000",
-      fontSize: 14,
-    },
-    fieldFocused: {},
-    fieldNotchedOutline: {
-      borderColor: "rgb(214 214 214) !important",
-    },
-    labelRoot: {
-      "&$labelFocused": {
-        color: `var(--theme-red) !important`,
-      },
-
-      color: "rgb(214 214 214)",
-    },
-    labelFocused: {},
-  });
-
-  const textFieldClasses = useTexfieldStyle();
 
   const onSubmit = async (data: any) => {
     clearErrors();
@@ -96,29 +67,48 @@ const PageLogin = () => {
   };
 
   useEffect(() => {
+    const firebaseCurrentUser: firebase.User | null =
+      firebase.auth().currentUser;
+
+    if (!!firebaseCurrentUser && firebaseCurrentUser !== null) {
+      const user: IFirebaseUser = {
+        email: firebaseCurrentUser.email || "",
+        displayName: firebaseCurrentUser.displayName,
+        phoneNumber: firebaseCurrentUser.phoneNumber,
+        photoURL: firebaseCurrentUser.photoURL,
+        refreshToken: firebaseCurrentUser.refreshToken,
+        uid: firebaseCurrentUser.uid,
+        emailVerified: firebaseCurrentUser.emailVerified,
+        isAnonymous: firebaseCurrentUser.isAnonymous,
+      };
+
+      dispatch(setAuthenticatedUser(user));
+      setRedirectToDashboard(true);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (!!userState.error && userState.error.length > 0) {
       setLoginError(userState.error);
     }
   }, [userState.error]);
 
   useEffect(() => {
-    if (!!userState.user.email && userState.user.email.length > 0) {
+    if (
+      !!userState.user &&
+      !!userState.user.email &&
+      userState.user.email.length > 0
+    ) {
       setRedirectToDashboard(true);
     }
-  }, [history, userState.user.displayName, userState.user.email]);
+  }, [history, userState.user]);
 
   return (
     <div className="section loginPage">
       {redirectToDashboard && <Redirect from="/login" to="/dashboard" />}
       <div style={INNER_DIV_WITH_MARGINS}>
-        <Grid
-          container
-          justifyContent="center"
-          className="formContainer"
-          xs={12}
-          sm={10}
-          md={6}
-        >
+        <Grid container justifyContent="center" className="formContainer">
           <Grid item container justifyContent="center">
             <h1>Sign In</h1>
           </Grid>

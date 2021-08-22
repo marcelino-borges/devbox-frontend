@@ -85,7 +85,7 @@ const SectionAboutUs = () => {
       md={4}
       sm={6}
       xs={12}
-      key={uuid()}
+      key={teamMember._id}
       style={{ textAlign: "center" }}
     >
       <CustomTooltip

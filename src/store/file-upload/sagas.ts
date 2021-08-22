@@ -24,7 +24,7 @@ export function* deleteImg({ payload }: any): any {
     if(response &&
       response.status === 200 &&
       response.data.status !== "error") {
-        yield put(actions.uploadImgSuccess(response.data));
+        yield put(actions.deleteImgSuccess(response.data));
       }
   } catch(error) {
     yield put(actions.uploadImgError(error));

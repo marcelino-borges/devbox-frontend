@@ -110,9 +110,16 @@ const TeamForm = (props: IProps) => {
   const getDataFromAPI = () => {};
 
   const uploadUserPicture = async () => {
+    const userName: string =
+      !!userState.user &&
+      userState.user !== null &&
+      !!userState.user.displayName &&
+      userState.user.displayName !== null
+        ? userState.user.displayName
+        : "";
     const imgToUpload: IUploadFileImgParams = {
       img: selectedFile?.file,
-      userSenderName: userState.user.displayName || "",
+      userSenderName: userName,
     };
     return await uploadImg(imgToUpload);
   };

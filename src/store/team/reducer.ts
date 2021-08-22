@@ -121,7 +121,6 @@ function reducer(state = initialState, action: any): ITeamStates {
       return {
         ...state,
         loading: false,
-        error: action.payload,
         showFailToast: action.payload,
       }
     }

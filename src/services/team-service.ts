@@ -1,22 +1,26 @@
 import axios from "axios";
 import { ITeamMember } from "../store/team/types";
 
+const client = axios.create({
+  baseURL: `${process.env.REACT_APP_BACKEND_URL}`,
+});
+
 export const getTeamMembers = async () => {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_URL}/team/`);
+  return await client.get(`/team/`);
 }
 
 export const getTeamMemberByEmail = async (email: string) => {
-  return await axios.get(`${process.env.REACT_APP_BACKEND_URL}/team/email/${email}`);
+  return await client.get(`/team/email/${email}`);
 }
 
 export const createTeammate = async (teammate: ITeamMember) => {
-  return await axios.post(`${process.env.REACT_APP_BACKEND_URL}/team/`, teammate);
+  return await client.post(`/team/`, teammate);
 }
 
 export const updateTeammate = async (teammate: ITeamMember) => {
-  return await axios.put(`${process.env.REACT_APP_BACKEND_URL}/team/`, teammate);
+  return await client.put(`/team/`, teammate);
 }
 
 export const deleteTeammate = async (id: string, email: string) => {
-  return await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/team?id=${id}&email=${email}`);
+  return await client.delete(`/team?id=${id}&email=${email}`);
 }

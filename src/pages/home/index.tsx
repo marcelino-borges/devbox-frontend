@@ -1,10 +1,10 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import ScrollToTop from "react-scroll-up";
+
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 
 import banner from "../../imgs/banner-thinking-outside-the-box.jpg";
-
 import SectionWhatWeDo from "../../components/section-what-we-do/index";
 import SectionPortfolio from "../../components/section-portfolio";
 import SectionAboutUs from "./../../components/section-about-us/index";
